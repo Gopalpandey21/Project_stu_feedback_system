@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-gray-100">
+    <style>
+        button {
+            margin-bottom: 30px;
+        }
+    </style>
+    <nav class="bg-blue-800 text-white p-2 flex justify-between items-center">
+        <a class="text-2xl font-semibold ml-4" href="#">FEEDBACK</a>
+        <div class="md:hidden ml-4">
+            <!-- Mobile menu button -->
+            <button id="menuBtn" class="text-white hover:text-yellow-400">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div class="hidden md:flex  space-x-4 mr-4">
+            <a class="hover:font-semibold  hover:text-yellow-400" href="/">Home</a>
+            <a class="hover:font-semibold hover:text-yellow-400" href="/about">About</a>
+            <a class="hover:font-semibold hover:text-yellow-400" href="/register">Registration</a>
+            <!-- <a class="hover:font-semibold hover:text-yellow-400" href="#">Contact</a> -->
+        </div>
+    </nav>
+
+    {%for messages in messages%}
+    <div class="bg-red-200 border border-red-500 text-red-900 px-6 py-3 rounded relative" role="alert">
+        <strong>Message: </strong> {{messages}}
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+    </div>
+    {% endfor %}
+
+
+
+    <div class="container mx-auto mt-8 rounded-md shadow-md mx-auto bg-blue-100 w-1/2 h-full">
+
+        <h1 class="text-3xl font-bold text-center mb-6 pt-8">Registration Form</h1>
+
+        <form class=" px-8" method="post" action="/register" enctype="multipart/form-data" onsubmit="return validateForm();">
+            {% csrf_token %}
+            <div class="flex ">
+                <div class="mb-4 mx-8">
+                    <label for="username" class="block text-gray-600 text-sm font-semibold ">Full-Name</label>
+                    <input type="text" id="username" name="username" class="w-full px-14 py-3 border rounded-md ">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-600 text-sm font-semibold mb-2">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-14 py-3 border rounded-md">
+                </div>
+            </div>
+
+            <div class="flex ">
+                <div class="mb-4 mx-8">
+                    <label for="password" class="block text-gray-600 text-sm font-semibold mb-2">Password</label>
+                    <input type="password" id="password" name="password" class="w-full px-14 py-3 border rounded-md">
+                </div>
+                <div class="mb-4">
+                    <label for="confirmpassword" class="block text-gray-600 text-sm font-semibold mb-2">Confirm
+                        Password</label>
+                    <input type="password" id="confirmpassword" name="confirmpassword"
+                        class="w-full px-14 py-3 border rounded-md">
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="mb-4 mx-8">
+                    <label for="mobile" class="block text-gray-600 text-sm font-semibold mb-2">Mobile</label>
+                    <input type="tel" id="mobile" name="mobile" class="w-full px-14 py-3 border rounded-md">
+                </div>
+                <div class="mb-4">
+                    <label for="dob" class="block text-gray-600 text-sm font-semibold mb-2">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" class="w-full px-20 py-3 border rounded-md">
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="mb-4 mx-8">
+                    <label for="program" class="block text-gray-600 text-sm font-semibold mb-2">Program</label>
+                    <select id="program" name="program" class="w-full px-20 py-3 border rounded-md">
+                        <!-- <option value="computer_science">Computer Science</option> -->
+                        <option value="Courses">Select Courses</option>
+                        <option value="b.tech">B.TECH</option>
+                        <option value="bca">BCA</option>
+                        <option value="mca">MCA</option>
+                        <option value="bba">BBA</option>
+                        <option value="mba">MBA</option>
+                        <option value="bhm">BHM</option>
+                        <option value="ba">B.A.</option>
+                        <option value="bcom">B.Com</option>
+                        <option value="bjmc">B.J.M.C</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="semester" class="block text-gray-600 text-sm font-semibold mb-2">Semester</label>
+                    <select id="semester" name="semester" class="w-full px-20 py-3 border rounded-md">
+                        <option value="spring">Select Semester</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-4 mx-8">
+                <label for="profilePic" class="block text-sm font-medium text-gray-700">Profile Image</label>
+                <input type="file" id="profilePic" name="profilePic" class="mt-1 p-2 border rounded-md">
+            </div>
+
+            <div class="flex justify-between items-center mt-6 mb-2">
+                <button type="submit"
+                    class="bg-blue-800 text-white rounded-full py-2 px-6 ml-36 text-lg font-semibold hover:bg-white hover:text-blue-800">Submit</button>
+                <button type="reset"
+                    class="bg-blue-800 text-white rounded-full py-2 px-6 mr-36 text-lg font-semibold hover:bg-white hover:text-blue-800">Reset</button>
+            </div>
+
+        </form>
+    </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var mobile = document.getElementById("mobile").value;
+
+            // Email validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            // Mobile validation
+            var mobileRegex = /^[0-9]+$/;
+            if (!mobile.match(mobileRegex)) {
+                alert("Please enter a valid phone number.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+
+</html>

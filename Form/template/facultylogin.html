@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-gray-800 text-white p-2 flex justify-between items-center">
+        <a class="text-2xl font-semibold ml-4" href="#">FEEDBACK</a>
+        <div class="md:hidden ml-4">
+            <!-- Mobile menu button -->
+            <button id="menuBtn" class="text-white hover:text-yellow-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="hidden md:flex  space-x-4 mr-4">
+            <a class="hover:font-semibold  hover:text-yellow-400" href="/">Home</a>
+            <a class="hover:font-semibold hover:text-yellow-400" href="/about">About</a>
+            <a class="hover:font-semibold hover:text-yellow-400" href="/register">Registration</a>
+            <!-- <a class="hover:font-semibold hover:text-yellow-400" href="#">Contact</a> -->
+        </div>
+    </nav>
+
+    {%for messages in messages%}
+        <div class="bg-red-200 border border-red-500 text-red-900 px-6 py-3 rounded relative" role="alert">
+            <strong>Message: </strong> {{messages}}
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+        </div>
+    {% endfor %}
+
+
+
+    <div class="container mx-auto mt-28">
+        <h1 class="text-3xl font-bold text-center mb-6"> Faculty Login</h1>
+
+        <form class="max-w-md mx-auto bg-white p-8 rounded-md shadow-md" action="{% url 'facultylogin' %}"method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="email" class="block text-gray-600 text-sm font-semibold mb-2">Email</label>
+                <input type="email" id="email" name="email" class="w-full p-2 border rounded-md">
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-gray-600 text-sm font-semibold mb-2">Password</label>
+                <input type="password" id="password" name="password" class="w-full p-2 border rounded-md">
+            </div>
+
+            <button type="submit" class="bg-blue-800 text-white rounded-full py-2 px-6 text-lg font-semibold hover:bg-yellow-400 hover:text-blue-800 w-full">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>

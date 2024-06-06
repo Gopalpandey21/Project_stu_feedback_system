@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <div class="sticky top-0">
+        <!-- Your navigation code -->
+        <nav class="bg-gray-800 text-white p-2 flex justify-between items-center ">
+            <a class="text-2xl font-semibold ml-4" href="#">{{username}}</a>
+            <div class="md:hidden ml-4">
+                <!-- Mobile menu button -->
+                <button id="menuBtn" class="text-white hover:text-yellow-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="h-6 w-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="hidden md:flex  space-x-4 mr-4">
+                <a class="hover:font-semibold hover:text-yellow-400" href="/">Home</a>
+                <a class="hover:font-semibold hover:text-yellow-400" href="/logout">Logout</a>
+          
+            </div>
+        </nav>
+    </div>
+
+    <div class=" flex h-screen  ">
+        <!-- Sidebar code -->
+        <div class="my-1 w-1/5 bg-gray-800 text-white fixed mb-18" id="sidebar">
+          <h1 class="my-10 py-5 bg-blue-400 text-white p-10 text-center font-bold text-2xl">Dashboard</h1>
+            <div class="flex-1 p-4" id="content">
+                <div class="text-center mt-8" id="user-profile">
+                    <img class="w-32 h-32 rounded-full object-cover mx-auto" src="{{src}}" alt="Image" />
+                    <h2 class="text-2xl font-bold mt-8 ">{{username}} </h2>
+                </div>
+            </div>
+            <ul class="list-none px-10 text-lg" id="navbar">
+                <li class="my-2">
+                    <a href="/updatepassword" class="text-white">
+                        Update Password
+                    </a>
+                </li>
+                <li class="my-2">
+                    <a href="/updateinfo" class="text-white">
+                        Update Profile
+                    </a>
+                </li>
+                <li class="my-2 mb-40">
+                    <a href="/stufeedback" class="text-white">
+                        Feedback
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class=" w-80vh  z-[-1] absolute right-0 bg-gray-100 p-10" id="main-content">
+            <!-- Your main content goes here -->
+            <form action="{% url 'stufeedback' %}" method="POST">
+                {% csrf_token %}
+                <!-- Your form content -->
+                <h2 class="text-center underline underline-offset-4 text-3xl font-bold">Student's Feedback form</h2>
+                <h4 class="mx-12  my-2 pt-6">Please give your answer about the following questions by circling the given grade on the scale.</h4>
+                <div class="flex mx-8">
+                
+                    <div class="w-30 h-8 border-solid border-2 border-green-600 m-4 pb-2 px-2 text-sm bg-green-600 text-white">
+                        Strongly Agree 5</div>
+                    <div class="w-30 h-8 border-solid border-2 border-red-900 m-4 pb-2 px-2 text-sm bg-red-900 text-white">
+                        Agree 4</div>
+                    <div class="w-30 h-8 border-solid border-2 border-blue-600 m-4 pb-2 px-2 text-sm bg-blue-600 text-white">
+                        Neutral 3</div>
+                    <div class="w-30 h-8 border-solid border-2 border-gray-700 m-4 pb-2 px-2 text-sm bg-gray-700 text-white">
+                        Disagree 2</div>
+                    <div class="w-30 h-8 border-solid border-2 border-red-600 m-4 pb-2 px-2 bg-red-600 text-white">
+                        Strongly disagree 1</div>
+                </div>
+                <div class="width flex justify-between h-12 mx-12 border-solid shadow-md border-2 border-blue-900">
+                    <h2 class="px-8 w-25 border-solid border-2  py-2 text-center">Select Faculty</h2>
+                    <div class="flex  justify-end border-2">
+                        <select name="facu" class="form-select  w-full  border-indigo-600 " aria-label="Default select example" required >
+                            <option selected>Select Faculty</option>
+                            {% for f in faculties  %}
+                            <option>{{f.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                </div>
+                <div class="my-4">
+                    <div class="mx-3">
+                        <ol class="text-2xl font-semibold px-10 ">
+                            <li type="1" class="">Course</li>
+                        </ol>
+    
+                        <div class="flex justify-between  border-solid border-2 border-black">
+                            <p class="text-xl mx-8">1.Teacher provided the course outline having weekly content plan with list of required text book.</p>
+                            <div class="flex items-center space-x-4 px-3">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq1" value="1">
+                                    <span class="ml-2">1</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq1" value="2">
+                                    <span class="ml-2">2</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq1" value="3">
+                                    <span class="ml-2">3</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq1" value="4">
+                                    <span class="ml-2"> 4</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq1" value="5">
+                                    <span class="ml-2"> 5</span>
+                                </label>
+                            </div>
+                        </div>
+    
+                        <div class="flex justify-between border-solid border-2 border-black">
+                            <p class="text-xl  mx-8"> 2.Course objectives, learning, outcomes and grading criteria are clear.</p>
+                            <div class="flex items-center space-x-4 px-3">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq2" value="1">
+                                    <span class="ml-2">1</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq2" value="2">
+                                    <span class="ml-2">2</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq2" value="3">
+                                    <span class="ml-2">3</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq2" value="4">
+                                    <span class="ml-2"> 4</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq2" value="5">
+                                    <span class="ml-2"> 5</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex justify-between border-solid border-2 border-black">
+                            <p class="text-xl  mx-8">3. Course integrates throretical course concepts with real world examples.</p>
+                            <div class="flex items-center space-x-4 px-3">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq3" value="1">
+                                    <span class="ml-2">1</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq3" value="2">
+                                    <span class="ml-2">2</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq3" value="3">
+                                    <span class="ml-2">3</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq3" value="4">
+                                    <span class="ml-2"> 4</span>
+                                </label>
+    
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="radioGroupq3" value="5">
+                                    <span class="ml-2"> 5</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="my-8">
+                        <ol class="text-2xl font-semibold px-10 ">
+                            <li type="2" class="">2.Class Teaching</li>
+                        </ol>
+                        <div class="mx-2">
+                            <div class="flex justify-between  border-solid border-2 border-black">
+                                <p class="text-xl mx-8">1. Teacher is punctual, arrives on time and leaves on time.</p>
+                                <div class="flex items-center space-x-4 px-3">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q1" value="1">
+                                        <span class="ml-2">1</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q1" value="2">
+                                        <span class="ml-2">2</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q1" value="3">
+                                        <span class="ml-2">3</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q1" value="4">
+                                        <span class="ml-2"> 4</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q1" value="5">
+                                        <span class="ml-2"> 5</span>
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="flex justify-between border-solid border-2 border-black">
+                                <p class="text-xl  mx-8">2. Teacher is good at stimulating the interest in the course content.</p>
+                                <div class="flex items-center space-x-4 px-3">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q2" value="1">
+                                        <span class="ml-2">1</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q2" value="2">
+                                        <span class="ml-2">2</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q2" value="3">
+                                        <span class="ml-2">3</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q2" value="4">
+                                        <span class="ml-2"> 4</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q2" value="5">
+                                        <span class="ml-2"> 5</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex justify-between border-solid border-2 border-black">
+                                <p class="text-xl  mx-8">3.Teacher is good at explaining the subject matter.</p>
+                                <div class="flex items-center space-x-4 px-3">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q3" value="1">
+                                        <span class="ml-2">1</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q3" value="2">
+                                        <span class="ml-2">2</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q3" value="3">
+                                        <span class="ml-2">3</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q3" value="4">
+                                        <span class="ml-2"> 4</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup2q3" value="5">
+                                        <span class="ml-2"> 5</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="my-8">
+                        <ol class="text-2xl font-semibold px-10 ">
+                            <li type="" class=""> 3.Class Assessment</li>
+                        </ol>
+                        <div class="mx-2">
+                            <div class="flex justify-between  border-solid border-2 border-black">
+                                <p class="text-xl mx-8">1.Teacher was always fair and impartia.</p>
+                                <div class="flex items-center space-x-4 px-3">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q1" value="1">
+                                        <span class="ml-2">1</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q1" value="2">
+                                        <span class="ml-2">2</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q1" value="3">
+                                        <span class="ml-2">3</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q1" value="4">
+                                        <span class="ml-2"> 4</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q1" value="5">
+                                        <span class="ml-2"> 5</span>
+                                    </label>
+                                </div>
+                            </div>
+    
+    
+                            <div class="flex justify-between border-solid border-2 border-black">
+                                <p class="text-xl  mx-8">2.Assessments conducted are clearly connected to maximize learining objectives.</p>
+                                <div class="flex items-center space-x-4 px-3">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q2" value="1">
+                                        <span class="ml-2">1</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center ">
+                                        <input type="radio" class="form-radio" name="radioGroup3q2" value="2">
+                                        <span class="ml-2">2</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q2" value="3">
+                                        <span class="ml-2">3</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q2" value="4">
+                                        <span class="ml-2"> 4</span>
+                                    </label>
+    
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="radioGroup3q2" value="5">
+                                        <span class="ml-2"> 5</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center ">
+                    <input type="submit" class="text-center w-32 h-12 bg-blue-400 font-semibold m-4 hover:bg-blue-400 hover:text-white-800 rounded-full">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
