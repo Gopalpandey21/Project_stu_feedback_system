@@ -200,6 +200,7 @@ def stufeedback(request):
     else:
         avg = int(q1) + int(q2) + int(q3) + int(q4) + int(q5) + int(q6) + int(q7) + int(q8)
         rating = avg / 8
+        
 
         # Set rating and message in session
         request.session['rating'] = rating
