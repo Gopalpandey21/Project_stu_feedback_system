@@ -155,17 +155,49 @@ def stufeedback(request):
         'src': "/media/" + img
     }
 
-    if request.method == 'POST':
-        facuname = request.POST.get('facu')
-        q1 = request.POST.get('radioGroupq1')
-        q2 = request.POST.get('radioGroupq2')
-        q3 = request.POST.get('radioGroupq3')
-        q4 = request.POST.get('radioGroup2q1')
-        q5 = request.POST.get('radioGroup2q2')
-        q6 = request.POST.get('radioGroup2q3')
-        q7 = request.POST.get('radioGroup3q1')
-        q8 = request.POST.get('radioGroup3q2')
+    # if request.method == 'POST':
+    #     facuname = request.POST.get('facu')
+    #     q1 = request.POST.get('radioGroupq1')
+    #     q2 = request.POST.get('radioGroupq2')
+    #     q3 = request.POST.get('radioGroupq3')
+    #     q4 = request.POST.get('radioGroup2q1')
+    #     q5 = request.POST.get('radioGroup2q2')
+    #     q6 = request.POST.get('radioGroup2q3')
+    #     q7 = request.POST.get('radioGroup3q1')
+    #     q8 = request.POST.get('radioGroup3q2')
         
+    #     avg = int(q1) + int(q2) + int(q3) + int(q4) + int(q5) + int(q6) + int(q7) + int(q8)
+    #     rating = avg / 8
+
+    #     # Set rating and message in session
+    #     request.session['rating'] = rating
+    #     if rating >= 5:
+    #         request.session['message'] = 'Excellent'
+    #     elif rating >= 3:
+    #         request.session['message'] = 'Good'
+    #     else:
+    #         request.session['message'] = 'Normal'
+
+    #     entry = Feedback(name=facuname, q1=q1, q2=q2, q3=q3, q4=q4, q5=q5, q6=q6, q7=q7, q8=q8, rating=rating)
+    #     entry.save()
+
+    # return render(request, "feedback.html", context)
+
+    if request.method == 'POST':
+     facuname = request.POST.get('facu')
+    q1 = request.POST.get('radioGroupq1')
+    q2 = request.POST.get('radioGroupq2')
+    q3 = request.POST.get('radioGroupq3')
+    q4 = request.POST.get('radioGroup2q1')
+    q5 = request.POST.get('radioGroup2q2')
+    q6 = request.POST.get('radioGroup2q3')
+    q7 = request.POST.get('radioGroup3q1')
+    q8 = request.POST.get('radioGroup3q2')
+    
+    # Check if any of the values are None or empty
+    if not all([q1, q2, q3, q4, q5, q6, q7, q8]):
+          messages.warning(request, "You have not empty any value")
+    else:
         avg = int(q1) + int(q2) + int(q3) + int(q4) + int(q5) + int(q6) + int(q7) + int(q8)
         rating = avg / 8
 
@@ -182,6 +214,7 @@ def stufeedback(request):
         entry.save()
 
     return render(request, "feedback.html", context)
+
 
 
 def logout_view(request):
